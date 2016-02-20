@@ -1,0 +1,308 @@
+# [pm]trans_watford_express
+# Coded by Patrick Martin using Sonic Pi, 20 Feb 2016
+
+# bassline - 4 beats
+define :bassline do
+
+  in_thread do
+    sleep 1
+    sample :bass_drop_c, rate:0.5, finish:0.5, amp: 0.6
+    sleep 2
+    sample :bass_drop_c, rate:0.6, finish:0.5, amp: 0.6
+    sleep 0.5
+    sample :bass_drop_c, rate:0.5, finish:0.5, amp: 0.6
+    sleep 0.5
+  end
+
+  in_thread do
+    4.times do
+      sample :drum_bass_soft, amp: 0.4
+      sleep 0.5
+      sample :drum_bass_hard, amp: 0.4
+      sample :drum_cymbal_pedal, amp: 0.6
+      sleep 0.5
+    end
+  end
+
+  in_thread do
+    sample :drum_snare_soft, amp: 0.3
+    sleep 1
+    sample :drum_snare_hard, amp: 0.3
+    sleep 1
+    sample :drum_snare_hard, amp: 0.3
+    sleep 0.5
+    sample :drum_snare_hard, amp: 0.3
+    sleep 0.5
+    sample :drum_splash_hard, amp: 0.6
+    sample :drum_snare_hard, amp: 0.4
+    sleep 1
+  end
+
+  in_thread do
+    2.times do
+      sleep 1
+      4.times do
+        sample :drum_cymbal_closed, amp: 0.9
+        sleep 0.25
+      end
+    end
+  end
+
+  in_thread do
+    with_fx :reverb do
+      sleep 1
+      sample :ambi_choir, rate:0.7, release:2, amp: 0.6
+      sleep 2
+      sample :ambi_choir, rate:0.6, release:2, amp: 0.6
+    end
+  end
+
+  2.times do
+    4.times do
+      sample :sn_dub, amp: 0.3, sustain: 0.125, rate: 0.5, finish: 0.25, pitch_dis: 0.01
+      sleep 0.25
+    end
+    sleep 1
+  end
+end
+
+#nobass - 4 beats
+
+define :nobass do
+
+  in_thread do
+    4.times do
+      sample :drum_bass_soft, amp: 0.4
+      sleep 0.5
+      sample :drum_bass_hard, amp: 0.4
+      sample :drum_cymbal_pedal, amp: 0.6
+      sleep 0.5
+    end
+  end
+
+  in_thread do
+    sample :drum_snare_soft, amp: 0.3
+    sleep 1
+    sample :drum_snare_hard, amp: 0.3
+    sleep 1
+    sample :drum_snare_hard, amp: 0.3
+    sleep 0.5
+    sample :drum_snare_hard, amp: 0.3
+    sleep 0.5
+    sample :drum_splash_hard, amp: 0.6
+    sample :drum_snare_hard, amp: 0.4
+    sleep 1
+  end
+
+  in_thread do
+    2.times do
+      sleep 1
+      4.times do
+        sample :drum_cymbal_closed, amp: 0.9
+        sleep 0.25
+      end
+    end
+  end
+
+  in_thread do
+    with_fx :reverb do
+      sleep 1
+      sample :ambi_choir, rate:0.7, release:4, amp: 0.8
+      sleep 2
+      sample :ambi_choir, rate:0.6, release:4, amp: 0.8
+    end
+  end
+
+  2.times do
+    4.times do
+      sample :sn_dub, amp: 0.3, sustain: 0.125, rate: 0.5, finish: 0.25, pitch_dis: 0.01
+      sleep 0.25
+    end
+    sleep 1
+  end
+end
+
+# define fm
+
+define :fm do
+
+  4.times do
+    use_synth :mod_fm
+    play 90, amp: 0.4, release: 0.25
+    sleep 0.25
+    play 85, amp: 0.4, release: 0.25
+    sleep 0.125
+    play 85, amp: 0.4, release: 0.25
+    sleep 0.125
+    play 81, amp: 0.4, release: 0.25
+    sleep 0.25
+    play 85, amp: 0.4, release: 0.25
+    sleep 0.125
+    play 85, amp: 0.4
+    sleep 0.125
+  end
+end
+
+#define hisaw
+
+define :hisaw do
+
+  use_synth :dsaw
+  with_fx :wobble, mix: 0.7 do
+    sleep 1
+    play 80, attack: 0.25, sustain: 1, phase: 2, amp: 0.4, phase: 0.5, phase_offset: 0.5
+    sleep 1
+    play 83, attack: 0.25, sustain: 0.5, phase: 2, amp: 0.4, phase: 0.5, phase_offset: 0.5
+    sleep 0.5
+    play 80, attack: 0.25, sustain: 1, phase: 2, amp: 0.4, phase: 0.5, phase_offset: 0.5
+    sleep 1.5
+  end
+end
+
+# define wibble
+
+define :wibble do
+  with_fx :distortion do
+    use_synth :mod_saw
+    play 70, attack: 1, sustain: 2, release: 2, detune: 12, cutoff: 50, env_curve: 3, amp: 0.2
+    use_synth :mod_fm
+    play 58, attack: 2, sustain: 1, release: 2, detune: 0.5, cutoff: 100, env_curve: 3, amp: 0.2
+    sleep 1
+    use_synth :mod_saw
+    play 68, attack: 1, sustain: 2, release: 2, detune: 12, cutoff: 50, env_curve: 3, amp: 0.2
+    use_synth :mod_fm
+    play 56, attack: 2, sustain: 1, release: 2, detune: 0.5, cutoff: 100, env_curve: 3, amp: 0.2
+    sleep 2
+    use_synth :mod_saw
+    play 70, attack: 1, sustain: 2, release: 2, detune: 12, cutoff: 50, env_curve: 3, amp: 0.2
+    use_synth :mod_fm
+    play 58, attack: 2, sustain: 1, release: 2, detune: 0.5, cutoff: 100, env_curve: 3, amp: 0.2
+    sleep 2
+    use_synth :mod_saw
+    play 60, attack: 1, sustain: 2, release: 2, detune: 12, cutoff: 50, env_curve: 3, amp: 0.2
+    use_synth :mod_fm
+    play 48, attack: 2, sustain: 1, release: 2, detune: 0.5, cutoff: 100, env_curve: 3, amp: 0.2
+    sleep 3
+  end
+end
+
+
+#### Play starts here ####
+
+# intro - 4 beats
+
+hisaw
+
+# bassline with hisaw - 4x((2x4)+(2x4)) = 64 beats
+
+4.times do
+
+  in_thread do
+    2.times do
+      bassline
+    end
+  end
+
+  in_thread do
+    2.times do
+      fm
+    end
+  end
+
+  2.times do
+    hisaw
+  end
+
+  2.times do
+    nobass
+  end
+
+end
+
+# without hisaw with wibble - 2x((2x4)+(2x4)) = 32 beats
+
+
+2.times do
+
+  in_thread do
+    1.times do
+      wibble
+    end
+  end
+
+  in_thread do
+    2.times do
+      bassline
+    end
+  end
+
+  2.times do
+    fm
+  end
+
+  2.times do
+    nobass
+  end
+
+end
+
+
+# with hisaw and wibble  - 2x((2x4)+(2x4)) = 32 beats
+
+2.times do
+
+  in_thread do
+    2.times do
+      bassline
+    end
+  end
+
+  in_thread do
+    2.times do
+      fm
+    end
+  end
+
+  in_thread do
+    2.times do
+      hisaw
+    end
+  end
+
+  wibble
+
+  2.times do
+    nobass
+  end
+
+end
+
+# with hisaw - 2x((2x4)+(2x4)) = 32 beats
+
+2.times do
+
+  in_thread do
+    2.times do
+      bassline
+    end
+  end
+
+  in_thread do
+    2.times do
+      fm
+    end
+  end
+
+  2.times do
+    hisaw
+  end
+
+  2.times do
+    nobass
+  end
+
+end
+
+# exit - 4 beats
+
+hisaw
